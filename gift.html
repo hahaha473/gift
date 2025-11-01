@@ -2,13 +2,13 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <title>ÉñÃØÍòÊ¥½ÚÀñÎï</title>
+  <title>ç¥ç§˜ä¸‡åœ£èŠ‚ç¤¼ç‰©</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
       background: linear-gradient(135deg, #ff6a00, #ee0979);
-      font-family: "Î¢ÈíÑÅºÚ", sans-serif;
+      font-family: "å¾®è½¯é›…é»‘", sans-serif;
       overflow: hidden;
       color: #fff;
     }
@@ -43,28 +43,29 @@
 
 <script>
   const wishes = [
-    "ÎÒÏëÄãÁË",
-    "ÌìÀäÁË£¬¶à´©ÒÂ·ş",
-    "±ğ°¾Ò¹",
-    "½ğ°ñÌâÃû",
-    "Ô¸ËùÓĞ·³ÄÕ¶¼ÏûÊ§",
-    "¼ÇµÃºÃºÃ»¤·ô",
-    "±ğÌ«ÀÛÀ²£¬Å¼¶ûÍµÀÁÒ²ºÃ",
-    "ÃÎÏë³ÉÕæ"
+    "æˆ‘æƒ³ä½ äº†",
+    "å¤©å†·äº†ï¼Œå¤šç©¿è¡£æœ",
+    "åˆ«ç†¬å¤œ",
+    "é‡‘æ¦œé¢˜å",
+    "æ„¿æ‰€æœ‰çƒ¦æ¼éƒ½æ¶ˆå¤±",
+    "è®°å¾—å¥½å¥½æŠ¤è‚¤",
+    "åˆ«å¤ªç´¯å•¦ï¼Œå¶å°”å·æ‡’ä¹Ÿå¥½",
+    "æ¢¦æƒ³æˆçœŸ"
   ];
 
   function showWish() {
     const text = wishes[Math.floor(Math.random() * wishes.length)];
     const box = document.createElement("div");
     box.className = "popup";
-    box.innerHTML = `${text}<span class="close" onclick="this.parentElement.remove()">¡Á</span>`;
+    box.innerHTML = `${text}<span class="close" onclick="this.parentElement.remove()">Ã—</span>`;
     document.body.appendChild(box);
     setTimeout(() => box.remove(), 4000);
   }
 
-  // Ò³Ãæ¼ÓÔØºóÃ¿ 2 Ãëµ¯Ò»´Î
+  // é¡µé¢åŠ è½½åæ¯ 2 ç§’å¼¹ä¸€æ¬¡
   window.onload = () => setInterval(showWish, 2000);
 </script>
 
 </body>
+
 </html>
