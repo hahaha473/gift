@@ -1,41 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <title>神秘万圣节礼物</title>
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff6a00, #ee0979);
-      font-family: "微软雅黑", sans-serif;
-      overflow: hidden;
-      color: #fff;
+    html,body{
+      margin:0;
+      height:100%;
+      background:linear-gradient(135deg,#ff6a00,#ee0979);
+      font-family:"微软雅黑",sans-serif;
+      overflow:hidden;
     }
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      background: rgba(255, 255, 255, 0.95);
-      color: #ff0066;
-      padding: 25px 35px;
-      border-radius: 20px;
-      font-size: 1.6em;
-      box-shadow: 0 0 30px rgba(255, 0, 102, 0.6);
-      animation: pop 0.6s forwards;
-      z-index: 999;
+    .wish{
+      position:absolute;
+      padding:10px 18px;
+      background:rgba(255,255,255,.95);
+      color:#ff0066;
+      border-radius:12px;
+      font-size:1.4em;
+      box-shadow:0 0 20px rgba(255,0,102,.5);
+      animation:fade .5s;
+      white-space:nowrap;
+      user-select:none;
     }
-    @keyframes pop {
-      to { transform: translate(-50%, -50%) scale(1); }
-    }
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      cursor: pointer;
-      font-weight: bold;
-      color: #999;
+    @keyframes fade{
+      from{opacity:0;transform:scale(.8)}
+      to{opacity:1;transform:scale(1)}
     }
   </style>
 </head>
@@ -43,29 +33,39 @@
 
 <script>
   const wishes = [
-    "我想你了",
-    "天冷了，多穿衣服",
-    "别熬夜",
-    "金榜题名",
-    "愿所有烦恼都消失",
-    "记得好好护肤",
-    "别太累啦，偶尔偷懒也好",
-    "梦想成真"
+    "我想你了","天冷了，多穿衣服","别熬夜","金榜题名","愿所有烦恼都消失",
+    "记得好好护肤","别太累啦，偶尔偷懒也好","梦想成真",
+    "今天也要开心呀","你笑起来真好看","一切都会越来越好","保持热爱",
+    "早点睡觉，晚安","多喝热水","你是最棒的","相信自己","冲鸭！",
+    "好运连连","心想事成","平安喜乐","被世界温柔以待","逆风翻盘",
+    "阳光总在风雨后","做自己的英雄","未来可期","人间值得","万物可爱",
+    "诗和远方都在等你","星河滚烫，你是理想","把烦恼丢掉，抱我一下"
   ];
 
-  function showWish() {
-    const text = wishes[Math.floor(Math.random() * wishes.length)];
-    const box = document.createElement("div");
-    box.className = "popup";
-    box.innerHTML = `${text}<span class="close" onclick="this.parentElement.remove()">×</span>`;
-    document.body.appendChild(box);
-    setTimeout(() => box.remove(), 4000);
+  function rnd(min,max){return Math.random()*(max-min)+min}
+
+  function showWish(){
+    const txt = wishes[Math.floor(Math.random()*wishes.length)];
+    const div = document.createElement("div");
+    div.className = "wish";
+    div.textContent = txt;
+
+    // 随机位置（留边距 20px）
+    const maxX = window.innerWidth - 200;
+    const maxY = window.innerHeight - 60;
+    div.style.left = rnd(20, maxX) + "px";
+    div.style.top  = rnd(20, maxY) + "px";
+
+    document.body.appendChild(div);
+
+    // 3 秒后消失
+    setTimeout(() => div.remove(), 3000);
   }
 
-  // 页面加载后每 2 秒弹一次
-  window.onload = () => setInterval(showWish, 2000);
+  // 初始 0.5 秒出一个，之后每 1.5 秒继续
+  showWish();
+  setInterval(showWish, 1500);
 </script>
 
 </body>
-
 </html>
