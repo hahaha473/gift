@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>神秘万圣节礼物</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff6a00, #ee0979);
+      font-family: "微软雅黑", sans-serif;
+      overflow: hidden;
+      color: #fff;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(255, 255, 255, 0.95);
+      color: #ff0066;
+      padding: 25px 35px;
+      border-radius: 20px;
+      font-size: 1.6em;
+      box-shadow: 0 0 30px rgba(255, 0, 102, 0.6);
+      animation: pop 0.6s forwards;
+      z-index: 999;
+    }
+    @keyframes pop {
+      to { transform: translate(-50%, -50%) scale(1); }
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const wishes = [
+    "我想你了",
+    "天冷了，多穿衣服",
+    "别熬夜",
+    "金榜题名",
+    "愿所有烦恼都消失",
+    "记得好好护肤",
+    "别太累啦，偶尔偷懒也好",
+    "梦想成真"
+  ];
+
+  function showWish() {
+    const text = wishes[Math.floor(Math.random() * wishes.length)];
+    const box = document.createElement("div");
+    box.className = "popup";
+    box.innerHTML = `${text}<span class="close" onclick="this.parentElement.remove()">×</span>`;
+    document.body.appendChild(box);
+    setTimeout(() => box.remove(), 4000);
+  }
+
+  // 页面加载后每 2 秒弹一次
+  window.onload = () => setInterval(showWish, 2000);
+</script>
+
+</body>
+</html>
