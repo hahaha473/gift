@@ -1,70 +1,181 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>温暖的祝福</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&family=Pacifico&display=swap" rel="stylesheet">
   <style>
-    html,body{
-      margin:0;
-      height:100%;
-      background:linear-gradient(135deg,#ff6a00,#ee0979);
-      font-family:"微软雅黑",sans-serif;
-      overflow:hidden;
+    :root{
+      --bg1:#ffecd2;
+      --bg2:#fcb69f;
+      --card:#ffffff;
+      --accent:#ff5252;
+      --muted:#6b6b6b;
     }
-    .wish{
-      position:absolute;
-      padding:10px 18px;
-      background:rgba(255,255,255,.95);
-      color:#ff0066;
-      border-radius:12px;
-      font-size:1.4em;
-      box-shadow:0 0 20px rgba(255,0,102,.5);
-      animation:fade .5s;
-      white-space:nowrap;
-      user-select:none;
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:"Noto Sans SC", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,82,82,0.08), transparent),
+                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:#222;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:32px
     }
-    @keyframes fade{
-      from{opacity:0;transform:scale(.8)}
-      to{opacity:1;transform:scale(1)}
-    }
+
+    /* Container */
+    .stage{position:relative;width:100%;max-width:980px}
+
+    /* Header */
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));border-radius:20px;padding:32px 36px;box-shadow:0 10px 30px rgba(0,0,0,0.12);backdrop-filter:blur(6px);position:relative;overflow:hidden}
+    .title{display:flex;align-items:center;gap:18px}
+    .logo{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ff8a65);display:flex;align-items:center;justify-content:center;color:#fff;font-family:Pacifico;font-size:26px;box-shadow:0 6px 18px rgba(255,82,82,0.28)}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:6px 0 0;color:var(--muted)}
+
+    /* Card with wish */
+    .wish-card{margin-top:20px;background:var(--card);padding:22px;border-radius:14px;display:flex;gap:18px;align-items:center;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    .wish-text{flex:1;font-size:18px;color:#333}
+    .controls{display:flex;gap:10px}
+    button{border:0;background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+    button.ghost{background:transparent;color:var(--accent);box-shadow:inset 0 0 0 1px rgba(255,82,82,0.12)}
+
+    /* Floating hearts (particles) */
+    .particles{pointer-events:none;position:absolute;inset:0;z-index:2}
+    .heart{position:absolute;width:18px;height:16px;background:transparent;transform:translateY(0);opacity:0.95}
+    .heart:before,.heart:after{content:"";position:absolute;left:9px;top:0;width:9px;height:14px;background:var(--accent);border-radius:7px 7px 0 0;transform:rotate(-45deg);transform-origin:0 100%}
+    .heart:after{left:0;transform:rotate(45deg);transform-origin:100% 100%}
+
+    /* Popup style */
+    .popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(0.96);min-width:280px;max-width:92%;background:linear-gradient(180deg,#fff,#fff);padding:18px;border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,0.2);z-index:999;animation:popupIn .36s cubic-bezier(.2,.9,.2,1) forwards}
+    @keyframes popupIn{to{transform:translate(-50%,-50%) scale(1)}}
+    .popup h2{margin:0 0 6px;font-size:20px}
+    .popup p{margin:0;color:#444}
+    .popup .close{position:absolute;right:10px;top:8px;border:0;background:transparent;font-size:18px;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:560px){h1{font-size:20px}.wish-text{font-size:16px}.logo{width:56px;height:56px}}
   </style>
 </head>
 <body>
 
-<script>
-  const wishes = [
-    "我想你了","天冷了，多穿衣服","别熬夜","金榜题名","愿所有烦恼都消失",
-    "记得好好护肤","别太累啦，偶尔偷懒也好","梦想成真",
-    "今天也要开心呀","你笑起来真好看","一切都会越来越好","保持热爱",
-    "早点睡觉，晚安","多喝热水","你是最棒的","相信自己","冲鸭！",
-    "好运连连","心想事成","平安喜乐","被世界温柔以待","逆风翻盘",
-    "阳光总在风雨后","做自己的英雄","未来可期","人间值得","万物可爱",
-    "诗和远方都在等你","星河滚烫，你是理想","把烦恼丢掉，抱我一下"
-  ];
+  <div class="stage">
+    <div class="hero" role="main" aria-labelledby="title">
+      <div class="title">
+        <div class="logo" aria-hidden="true">❤</div>
+        <div>
+          <h1 id="title">送你一份温暖的祝福</h1>
+          <p class="lead">愿你天天开心，事事顺意 — 点击“抽取祝福”试试手气</p>
+        </div>
+      </div>
 
-  function rnd(min,max){return Math.random()*(max-min)+min}
+      <div class="wish-card" aria-live="polite">
+        <div class="wish-text" id="wishText">点击按钮抽取祝福</div>
+        <div class="controls">
+          <button id="drawBtn">抽取祝福</button>
+          <button id="surpriseBtn" class="ghost">惊喜分享</button>
+        </div>
+      </div>
+    </div>
 
-  function showWish(){
-    const txt = wishes[Math.floor(Math.random()*wishes.length)];
-    const div = document.createElement("div");
-    div.className = "wish";
-    div.textContent = txt;
+    <div class="particles" id="particles" aria-hidden="true"></div>
+  </div>
 
-    // 随机位置（留边距 20px）
-    const maxX = window.innerWidth - 200;
-    const maxY = window.innerHeight - 60;
-    div.style.left = rnd(20, maxX) + "px";
-    div.style.top  = rnd(20, maxY) + "px";
+  <!-- Popup template (hidden) -->
+  <template id="popupTmpl">
+    <div class="popup" role="dialog" aria-modal="true">
+      <button class="close" aria-label="关闭">✕</button>
+      <h2>送上祝福</h2>
+      <p id="popupText"></p>
+    </div>
+  </template>
 
-    document.body.appendChild(div);
+  <script>
+    // 祝福文本，可按需修改或从后台加载
+    const wishes = [
+      '愿你笑容常在，生活温柔以待。',
+      '愿你心想事成，前路皆是光。',
+      '愿你日子像蜜糖一样甜，快乐每一天。',
+      '愿你被世界温柔相待，也常温柔待己。',
+      '愿健康、好运与平安陪伴你左右。',
+      '愿每个不眠夜都藏着星光与希望。',
+      '愿所有努力都有回响，未来可期。'
+    ];
 
-    // 3 秒后消失
-    setTimeout(() => div.remove(), 3000);
-  }
+    const wishTextEl = document.getElementById('wishText');
+    const drawBtn = document.getElementById('drawBtn');
+    const surpriseBtn = document.getElementById('surpriseBtn');
+    const particles = document.getElementById('particles');
 
-  // 初始 0.5 秒出一个，之后每 1.5 秒继续
-  showWish();
-  setInterval(showWish, 1500);
-</script>
+    function randomChoice(arr){return arr[Math.floor(Math.random()*arr.length)];}
+
+    function showPopup(text){
+      const tmpl = document.getElementById('popupTmpl');
+      const node = tmpl.content.cloneNode(true);
+      node.getElementById('popupText').textContent = text;
+      const popup = node.querySelector('.popup');
+      popup.querySelector('.close').addEventListener('click', ()=> popup.remove());
+      document.body.appendChild(popup);
+      setTimeout(()=>{ if(document.body.contains(popup)) popup.remove(); }, 5000);
+    }
+
+    function drawWish(){
+      const w = randomChoice(wishes);
+      wishTextEl.textContent = w;
+      // small card pulse animation
+      wishTextEl.parentElement.animate([
+        {transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}
+      ],{duration:420,easing:'cubic-bezier(.2,.9,.2,1)'});
+      // popup for emphasis
+      showPopup(w);
+    }
+
+    drawBtn.addEventListener('click', drawWish);
+
+    surpriseBtn.addEventListener('click', ()=>{
+      const text = wishTextEl.textContent || randomChoice(wishes);
+      // use Web Share API when available, fallback to copying text
+      if(navigator.share){
+        navigator.share({title:'一份祝福给你',text,})
+          .catch(()=>{ navigator.clipboard && navigator.clipboard.writeText(text); alert('内容已复制到剪贴板'); });
+      } else if(navigator.clipboard){
+        navigator.clipboard.writeText(text).then(()=>alert('已复制祝福，快去分享吧！'));
+      } else {
+        alert('你的浏览器不支持分享，建议复制文本手动分享：\n'+text);
+      }
+    });
+
+    // Particle hearts generator
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const startX = Math.random()*100; // percent
+      const size = 12 + Math.random()*18; // px
+      h.style.left = startX + '%';
+      h.style.width = size+'px';
+      h.style.height = (size*0.9)+'px';
+      particles.appendChild(h);
+
+      const duration = 3500 + Math.random()*2500;
+      const drift = (Math.random()-0.5)*60; // px horizontal drift
+      h.animate([
+        {transform:`translateY(0) translateX(0) scale(0.8)`,opacity:1},
+        {transform:`translateY(-180vh) translateX(${drift}px) scale(1)`,opacity:0}
+      ],{duration,iterations:1,easing:'linear'});
+
+      setTimeout(()=>{ h.remove(); }, duration);
+    }
+
+    // spawn hearts periodically, with slight burst on load
+    let particleTimer = setInterval(spawnHeart, 550);
+    for(let i=0;i<6;i++){ setTimeout(spawnHeart, i*160); }
+
+    // Accessibility: allow Enter key on draw button when focused anywhere
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ drawBtn.focus(); drawWish(); } });
+
+    // Optional: auto draw once on load
+    window.addEventListener('load', ()=>{ setTimeout(drawWish, 700); });
+  </script>
 
 </body>
 </html>
